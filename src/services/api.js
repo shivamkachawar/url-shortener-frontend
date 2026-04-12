@@ -12,7 +12,7 @@ export async function loginUser(username, password) {
   return response.json();
 }
 
-export async function createShortUrl(url, expiry) {
+export async function createShortUrl(url, expiry, customCode) {
   const token = localStorage.getItem("token");
 
   const response = await fetch("http://localhost:8080/api/shorten", {
@@ -21,7 +21,11 @@ export async function createShortUrl(url, expiry) {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + token
     },
-    body: JSON.stringify({ url, expiry }),
+    body: JSON.stringify({
+      url,
+      expiry,
+      customCode
+    }),
   });
 
   return response.json();
@@ -74,4 +78,16 @@ export async function updateExpiry(id, expiry) {
       }
     }
   );
+}
+
+export async function getCurrentUser() {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch("http://localhost:8080/auth/me", {
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  });
+
+  return response.text();
 }

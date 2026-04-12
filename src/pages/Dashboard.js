@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { createShortUrl, getMyUrls, deleteUrl, updateExpiry } from "../services/api";
+import { createShortUrl, getMyUrls, deleteUrl, updateExpiry, getCurrentUser } from "../services/api";
+import { QRCodeCanvas } from "qrcode.react";
 
 function Dashboard() {
 
@@ -8,9 +9,16 @@ function Dashboard() {
   const [urls, setUrls] = useState([]);
   const [expiry, setExpiry] = useState("");
   const [search, setSearch] = useState("");
+  const [customCode, setCustomCode] = useState("");
+  const [username, setUsername] = useState("");
+  const [qrValue, setQrValue] = useState("");
 
   useEffect(() => {
     fetchUrls();
+
+    getCurrentUser().then((name) => {
+      setUsername(name);
+    });
   }, []);
 
   const fetchUrls = async () => {
@@ -23,31 +31,25 @@ function Dashboard() {
   };
 
   const handleShorten = async () => {
-  try {
-    const data = await createShortUrl(url, expiry);
+    try {
+      const data = await createShortUrl(url, expiry, customCode);
 
-    console.log("CREATE RESPONSE:", data); // keep for debug
+      if (data && data.shortCode) {
+        const fullUrl = `http://localhost:8080/api/${data.shortCode}`;
+        setShortUrl(fullUrl);
+        setUrl("");
+        setExpiry("");
+        setCustomCode("");
+        fetchUrls();
+      } else {
+        alert(data?.error || "Error creating short URL");
+      }
 
-    // ✅ FIXED CONDITION
-    if (data && data.shortCode) {
-
-      const fullUrl = `http://localhost:8080/api/${data.shortCode}`;
-
-      setShortUrl(fullUrl);
-      setUrl("");
-      setExpiry("");
-
-      fetchUrls();
-
-    } else {
-      alert(data?.error || "Error creating short URL");
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
     }
-
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong");
-  }
-};
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -55,14 +57,12 @@ function Dashboard() {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this URL?");
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this URL?")) return;
 
     try {
       await deleteUrl(id);
       fetchUrls();
     } catch (error) {
-      console.error(error);
       alert("Delete failed");
     }
   };
@@ -75,12 +75,10 @@ function Dashboard() {
       await updateExpiry(id, newExpiry);
       fetchUrls();
     } catch (error) {
-      console.error(error);
       alert("Update failed");
     }
   };
 
-  // 🔥 FILTER LOGIC (IMPORTANT)
   const filteredUrls = urls.filter((item) =>
     item.originalUrl.toLowerCase().includes(search.toLowerCase()) ||
     item.shortCode.toLowerCase().includes(search.toLowerCase())
@@ -91,16 +89,21 @@ function Dashboard() {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">URL Shortener</h2>
+        <div>
+          <h2 className="text-2xl font-bold">URL Shortener</h2>
+          <p className="text-sm text-gray-500">
+            Welcome, {username} 👋
+          </p>
+        </div>
         <button
           onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          className="bg-red-500 text-white px-4 py-2 rounded"
         >
           Logout
         </button>
       </div>
 
-      {/* Create URL Card */}
+      {/* Create URL */}
       <div className="bg-white p-6 rounded shadow-md mb-6">
         <h3 className="text-lg font-semibold mb-4">Create Short URL</h3>
 
@@ -114,10 +117,6 @@ function Dashboard() {
             className="border p-2 rounded"
           />
 
-          <p className="text-sm text-gray-600">
-            Expiry (default: 7 days)
-          </p>
-
           <input
             type="datetime-local"
             value={expiry}
@@ -125,44 +124,100 @@ function Dashboard() {
             className="border p-2 rounded"
           />
 
-          <button
-            onClick={handleShorten}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Shorten
-          </button>
+          <input
+            type="text"
+            placeholder="Custom tag (optional)"
+            value={customCode}
+            onChange={(e) => setCustomCode(e.target.value)}
+            className="border p-2 rounded"
+          />
 
+          {/* Buttons */}
+          <div className="flex gap-2 w-full">
+            <button
+              onClick={handleShorten}
+              className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 font-semibold"
+            >
+              Shorten URL
+            </button>
+
+            <button
+              onClick={() => {
+                if (!url) return alert("Enter URL first");
+                setQrValue(url);
+              }}
+              className="w-1/2 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 font-semibold"
+            >
+              Generate QR
+            </button>
+          </div>
         </div>
 
+        {/* Short URL */}
         {shortUrl && (
-  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
+          <div className="mt-4 p-4 bg-green-50 border rounded">
+            <p className="text-green-700 font-medium">✅ Short URL created</p>
 
-    <p className="font-medium text-green-700 mb-2">
-      ✅ Short URL created
+            <div className="flex justify-between items-center mt-2">
+              <a href={shortUrl} target="_blank" rel="noreferrer" className="text-blue-600 underline">
+                {shortUrl}
+              </a>
+
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(shortUrl);
+                  alert("Copied!");
+                }}
+                className="bg-green-500 text-white px-3 py-1 rounded"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* QR Viewer */}
+        {qrValue && (
+  <div className="mt-6 bg-gray-50 p-6 rounded border flex flex-col items-center">
+
+    <p className="text-sm text-gray-600 mb-2">
+      QR for:
     </p>
 
-    <div className="flex items-center justify-between gap-2">
+    <p className="text-blue-600 break-all mb-3">
+      {qrValue}
+    </p>
 
-      <a
-        href={shortUrl}
-        target="_blank"
-        rel="noreferrer"
-        className="text-blue-600 underline break-all"
-      >
-        {shortUrl}
-      </a>
+    <QRCodeCanvas id="qrCanvas" value={qrValue} size={150} />
 
-      <button
-        onClick={() => {
-          navigator.clipboard.writeText(shortUrl);
-          alert("Copied to clipboard!");
-        }}
-        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-      >
-        Copy
-      </button>
+    <br />
 
-    </div>
+    <div className="flex justify-center gap-3 mt-3">
+
+  <button
+    onClick={() => {
+      const canvas = document.getElementById("qrCanvas");
+      const url = canvas.toDataURL("image/png");
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "qr-code.png";
+      link.click();
+    }}
+    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+  >
+    Download QR
+  </button>
+
+  <button
+    onClick={() => setQrValue("")}
+    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+  >
+    Close
+  </button>
+
+</div>
+
   </div>
 )}
       </div>
@@ -176,71 +231,71 @@ function Dashboard() {
         className="border p-2 rounded mb-4 w-full"
       />
 
-      {/* URLs List */}
+      {/* URL List */}
       <div className="bg-white p-6 rounded shadow-md">
         <h3 className="text-lg font-semibold mb-4">Your URLs</h3>
 
-        <div className="space-y-4">
+        {filteredUrls.length === 0 ? (
+          <p className="text-gray-400 text-center">No URLs found 😕</p>
+        ) : (
+          filteredUrls.map((item) => (
+            <div key={item.id} className="p-4 border rounded mb-3 flex justify-between">
 
-          {filteredUrls.length === 0 ? (
+              <div>
+                <p className="font-medium">{item.originalUrl}</p>
 
-            <p className="text-gray-400 text-center mt-4">
-              No URLs found 😕
-            </p>
+                <a
+                  href={`http://localhost:8080/api/${item.shortCode}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 text-sm"
+                >
+                  {item.shortCode}
+                </a>
 
-          ) : (
+                <div className="text-xs text-gray-400">
+                  Created: {new Date(item.createdAt).toLocaleString()}
+                </div>
 
-            filteredUrls.map((item) => (
-              <div
-                key={item.id}
-                className="p-4 border rounded flex justify-between items-center"
-              >
-                <div>
-                  <p className="font-medium">{item.originalUrl}</p>
-
-                  <a
-                    href={`http://localhost:8080/api/${item.shortCode}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 text-sm"
-                  >
-                    {item.shortCode}
-                  </a>
-                  <div className="text-xs text-gray-400">
-                    Created: {new Date(item.createdAt).toLocaleString()}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    Expires: {item.expiryDate 
+                <div className="text-xs text-gray-500">
+                  Expires: {item.expiryDate
                     ? new Date(item.expiryDate).toLocaleString()
                     : "N/A"}
-                  </div>
-
-                  <div className="mt-2">
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-500 mr-3"
-                    >
-                      Delete
-                    </button>
-
-                    <button
-                      onClick={() => handleExtend(item.id)}
-                      className="text-blue-500"
-                    >
-                      Extend
-                    </button>
-                  </div>
                 </div>
 
-                <div className="text-sm text-gray-600">
-                  Clicks: {item.clickCount}
+                <div className="text-xs text-gray-400">
+                  Last Accessed: {item.lastAccessedAt
+                    ? new Date(item.lastAccessedAt).toLocaleString()
+                    : "Never"}
+                </div>
+
+                <div className="mt-2">
+                  <button onClick={() => handleDelete(item.id)} className="text-red-500 mr-3">
+                    Delete
+                  </button>
+
+                  <button onClick={() => handleExtend(item.id)} className="text-blue-500 mr-3">
+                    Extend
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setQrValue(`http://localhost:8080/api/${item.shortCode}`)
+                    }
+                    className="text-purple-500"
+                  >
+                    View QR
+                  </button>
                 </div>
               </div>
-            ))
 
-          )}
+              <div className="text-sm text-gray-600">
+                Clicks: {item.clickCount}
+              </div>
 
-        </div>
+            </div>
+          ))
+        )}
       </div>
 
     </div>

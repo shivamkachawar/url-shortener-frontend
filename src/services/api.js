@@ -14,8 +14,7 @@ export async function loginUser(username, password) {
 
 export async function createShortUrl(url, expiry, customCode) {
   const token = localStorage.getItem("token");
-
-  const response = await fetch("http://localhost:8080/api/shorten", {
+  const response = await fetch(`${BASE_URL}/api/shorten`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +33,7 @@ export async function createShortUrl(url, expiry, customCode) {
 export async function getMyUrls() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://localhost:8080/api/my-urls", {
+  const response = await fetch(`${BASE_URL}/api/my-urls`, {
     method: "GET",
     headers: {
       "Authorization": "Bearer " + token
@@ -44,7 +43,7 @@ export async function getMyUrls() {
   return response.json();
 }
 export async function registerUser(username, password) {
-  const response = await fetch("http://localhost:8080/auth/register", {
+  const response = await fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +57,8 @@ export async function registerUser(username, password) {
 export async function deleteUrl(id) {
   const token = localStorage.getItem("token");
 
-  await fetch(`http://localhost:8080/api/delete/${id}`, {
+  await fetch(`${BASE_URL}/api/delete/${id}`, {
+    
     method: "DELETE",
     headers: {
       "Authorization": "Bearer " + token
@@ -70,7 +70,7 @@ export async function updateExpiry(id, expiry) {
   const token = localStorage.getItem("token");
 
   await fetch(
-    `http://localhost:8080/api/expiry/${id}?expiry=${expiry}`,
+    `${BASE_URL}/api/expiry/${id}?expiry=${expiry}`,
     {
       method: "PUT",
       headers: {
@@ -83,7 +83,7 @@ export async function updateExpiry(id, expiry) {
 export async function getCurrentUser() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:8080/auth/me", {
+  const res = await fetch(`${BASE_URL}/auth/me`, {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -95,7 +95,7 @@ export async function getCurrentUser() {
 export async function getAllUsers() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:8080/admin/users", {
+  const res = await fetch(`${BASE_URL}/admin/users`, {
     headers: {
       "Authorization": "Bearer " + token
     }
@@ -107,7 +107,7 @@ export async function getAllUsers() {
 export async function getAllUrls() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:8080/admin/urls", {
+  const res = await fetch(`${BASE_URL}/admin/urls`, {
     headers: {
       "Authorization": "Bearer " + token
     }
@@ -119,7 +119,7 @@ export async function getAllUrls() {
 export async function getAdminStats() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:8080/admin/stats", {
+  const res = await fetch(`${BASE_URL}/admin/stats`, {
     headers: {
       Authorization: "Bearer " + token,
     },

@@ -1,42 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "./services/api";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import {useEffect} from "react";
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [isLogin, setIsLogin] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
+    if (isLoggedIn) {
+      getCurrentUser()
+        .then((data) => {
+          setUser(data);
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          setIsLoggedIn(false);
+        });
     }
-  }, []);
+  }, [isLoggedIn]);
 
-  const [isLogin, setIsLogin] = useState(true);
+  // 🔐 Not logged in
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-gray-100">
 
-  if (isLoggedIn) {
-    return <Dashboard />;
+        <div className="text-center py-6">
+          <h1 className="text-3xl font-bold">URL Shortener</h1>
+        </div>
+
+        {isLogin
+          ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />
+          : <Register setIsLogin={setIsLogin} />
+        }
+
+      </div>
+    );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-100">
+  // ⏳ Loading user info
+  if (!user) {
+    return <div className="p-6">Loading...</div>;
+  }
 
-      {/* App Title */}
-      <div className="text-center py-6">
-        <h1 className="text-3xl font-bold">URL Shortener</h1>
-      </div>
+  // 👑 Admin
+  if (user.role === "ROLE_ADMIN") {
+    return <Admin />;
+  }
 
-      {/* Auth Pages */}
-      {isLogin
-        ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />
-        : <Register setIsLogin={setIsLogin} />
-      }
-
-    </div>
-  );
+  // 👤 Normal user
+  return <Dashboard />;
 }
 
 export default App;

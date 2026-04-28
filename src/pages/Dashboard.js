@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createShortUrl, getMyUrls, deleteUrl, updateExpiry, getCurrentUser } from "../services/api";
-import { QRCodeCanvas } from "qrcode.react";
+
 import Header from "../components/Header";
 import CreateUrlCard from "../components/CreateUrlCard";
 import QRViewer from "../components/QRViewer";
@@ -20,8 +20,8 @@ function Dashboard() {
   useEffect(() => {
     fetchUrls();
 
-    getCurrentUser().then((name) => {
-      setUsername(name);
+    getCurrentUser().then((data) => {
+        setUsername(data.username);  // 🔥 FIX
     });
   }, []);
 

@@ -1,59 +1,91 @@
 function UrlCard({ item, handleDelete, handleExtend, setQrValue }) {
   return (
-    <div className="p-4 border rounded mb-3 flex justify-between">
+    <div className="bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl shadow-md p-5 mb-4 hover:shadow-lg transition-all">
 
-      <div>
-        <p className="font-medium">{item.originalUrl}</p>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
 
-        <a
-          href={`http://localhost:8080/api/${item.shortCode}`}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 text-sm"
-        >
-          {item.shortCode}
-        </a>
+        {/* 🔗 LEFT SIDE */}
+        <div className="flex-1">
 
-        <div className="text-xs text-gray-400">
-          Created: {new Date(item.createdAt).toLocaleString()}
-        </div>
+          {/* Original URL */}
+          <p className="text-sm text-gray-500 truncate">
+            {item.originalUrl}
+          </p>
 
-        <div className="text-xs text-gray-500">
-          Expires: {item.expiryDate
-            ? new Date(item.expiryDate).toLocaleString()
-            : "N/A"}
-        </div>
-
-        <div className="text-xs text-gray-400">
-          Last Accessed: {item.lastAccessedAt
-            ? new Date(item.lastAccessedAt).toLocaleString()
-            : "Never"}
-        </div>
-
-        <div className="mt-2">
-          <button onClick={() => handleDelete(item.id)} className="text-red-500 mr-3">
-            Delete
-          </button>
-
-          <button onClick={() => handleExtend(item.id)} className="text-blue-500 mr-3">
-            Extend
-          </button>
-
-          <button
-            onClick={() =>
-              setQrValue(`http://localhost:8080/api/${item.shortCode}`)
-            }
-            className="text-purple-500"
+          {/* Short URL */}
+          <a
+            href={`http://localhost:8080/api/${item.shortCode}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-lg font-semibold text-indigo-600 hover:underline break-all"
           >
-            View QR
-          </button>
+            {item.shortCode}
+          </a>
+
+          {/* Metadata */}
+          <div className="mt-2 text-xs text-gray-400 space-y-1">
+            <div>Created: {new Date(item.createdAt).toLocaleString()}</div>
+            <div>
+              Expires:{" "}
+              {item.expiryDate
+                ? new Date(item.expiryDate).toLocaleString()
+                : "N/A"}
+            </div>
+            <div>
+              Last Accessed:{" "}
+              {item.lastAccessedAt
+                ? new Date(item.lastAccessedAt).toLocaleString()
+                : "Never"}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="mt-4 flex flex-wrap gap-2">
+
+            <button
+              onClick={() => handleDelete(item.id)}
+              className="px-3 py-1 text-sm rounded-md bg-red-50 text-red-600 hover:bg-red-100 transition"
+            >
+              Delete
+            </button>
+
+            <button
+              onClick={() => handleExtend(item.id)}
+              className="px-3 py-1 text-sm rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+            >
+              Extend
+            </button>
+
+            <button
+              onClick={() => {
+                setQrValue(`http://localhost:8080/api/${item.shortCode}`);
+                setTimeout(() => {
+                  const qrSection = document.getElementById("qr-section");
+                  if (qrSection) {
+                    qrSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }
+                }, 100);
+              }}
+              className="px-3 py-1 text-sm rounded-md bg-purple-50 text-purple-600 hover:bg-purple-100 transition"
+            >
+              QR
+            </button>
+
+          </div>
         </div>
-      </div>
 
-      <div className="text-sm text-gray-600">
-        Clicks: {item.clickCount}
-      </div>
+        {/* 📊 RIGHT SIDE */}
+        <div className="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-2">
 
+          <div className="text-xs text-gray-400">Clicks</div>
+
+          <div className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm">
+            {item.clickCount}
+          </div>
+
+        </div>
+
+      </div>
     </div>
   );
 }

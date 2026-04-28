@@ -83,11 +83,47 @@ export async function updateExpiry(id, expiry) {
 export async function getCurrentUser() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://localhost:8080/auth/me", {
+  const res = await fetch("http://localhost:8080/auth/me", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  return res.json();
+}
+
+export async function getAllUsers() {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch("http://localhost:8080/admin/users", {
     headers: {
       "Authorization": "Bearer " + token
     }
   });
 
-  return response.text();
+  return res.json();
+}
+
+export async function getAllUrls() {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch("http://localhost:8080/admin/urls", {
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  });
+
+  return res.json();
+}
+
+export async function getAdminStats() {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch("http://localhost:8080/admin/stats", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  return res.json();
 }

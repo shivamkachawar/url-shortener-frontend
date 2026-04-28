@@ -39,7 +39,7 @@ function Dashboard() {
       const data = await createShortUrl(url, expiry, customCode);
 
       if (data && data.shortCode) {
-        const fullUrl = `http://localhost:8080/api/${data.shortCode}`;
+        const fullUrl = `https://sniply-backend.onrender.com/api/${data.shortCode}`;
         setShortUrl(fullUrl);
         setUrl("");
         setExpiry("");

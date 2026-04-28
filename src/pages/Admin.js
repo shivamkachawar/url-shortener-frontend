@@ -184,7 +184,7 @@ function Admin() {
                 </p>
 
                 <a
-                  href={`http://localhost:8080/api/${url.shortCode}`}
+                  href={`https://sniply-backend.onrender.com/api/${url.shortCode}`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-indigo-600 font-semibold text-sm"
@@ -219,7 +219,7 @@ function Admin() {
                       const token = localStorage.getItem("token");
 
                       try {
-                        await fetch(`http://localhost:8080/admin/url/${url.id}`, {
+                        await fetch(`https://sniply-backend.onrender.com/admin/url/${url.id}`, {
                           method: "DELETE",
                           headers: {
                             Authorization: "Bearer " + token,

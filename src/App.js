@@ -44,7 +44,7 @@ function App() {
 
   // ⏳ Loading user info
   if (!user) {
-    return <div className="p-6">Loading...</div>;
+    return <div className="p-6">Loading... It may take a minute as the project is using a free tier hosting service.</div>;
   }
 
   // 👑 Admin

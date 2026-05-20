@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import {
   createShortUrl,
   getMyUrls,
@@ -11,6 +12,7 @@ import Header from "../components/Header";
 import CreateUrlCard from "../components/CreateUrlCard";
 import QRViewer from "../components/QRViewer";
 import UrlList from "../components/UrlList";
+import ExtendExpiryModal from "../components/ExtendExpiryModal";
 
 function Dashboard() {
 
@@ -25,6 +27,11 @@ function Dashboard() {
   // QR states
   const [qrValue, setQrValue] = useState("");
   const [originalUrl, setOriginalUrl] = useState("");
+
+  // Extend modal states
+  const [showExtendModal, setShowExtendModal] = useState(false);
+  const [selectedUrlId, setSelectedUrlId] = useState(null);
+  const [newExpiry, setNewExpiry] = useState("");
 
   useEffect(() => {
     fetchUrls();
@@ -44,13 +51,19 @@ function Dashboard() {
   };
 
   const handleShorten = async () => {
+
     try {
-      const data = await createShortUrl(url, expiry, customCode);
+
+      const data = await createShortUrl(
+        url,
+        expiry,
+        customCode
+      );
 
       if (data && data.shortCode) {
 
-        // ✅ frontend short URL
-        const fullUrl = `https://snip--ly.vercel.app/${data.shortCode}`;
+        const fullUrl =
+          `https://snip--ly.vercel.app/${data.shortCode}`;
 
         setShortUrl(fullUrl);
 
@@ -76,35 +89,71 @@ function Dashboard() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this URL?")) return;
+
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this URL?"
+      )
+    ) {
+      return;
+    }
 
     try {
+
       await deleteUrl(id);
+
       fetchUrls();
+
     } catch (error) {
       alert("Delete failed");
     }
   };
 
-  const handleExtend = async (id) => {
-    const newExpiry = prompt("Enter new expiry (YYYY-MM-DDTHH:MM)");
+  // OPEN MODAL
+  const handleExtend = (id) => {
 
-    if (!newExpiry) return;
+    setSelectedUrlId(id);
+
+    setShowExtendModal(true);
+  };
+
+  // SAVE NEW EXPIRY
+  const submitExtend = async () => {
+
+    if (!newExpiry) {
+      return alert("Please select expiry");
+    }
 
     try {
-      await updateExpiry(id, newExpiry);
+
+      await updateExpiry(
+        selectedUrlId,
+        newExpiry
+      );
+
+      setShowExtendModal(false);
+      setSelectedUrlId(null);
+      setNewExpiry("");
+
       fetchUrls();
+
     } catch (error) {
       alert("Update failed");
     }
   };
 
   const filteredUrls = urls.filter((item) =>
-    item.originalUrl.toLowerCase().includes(search.toLowerCase()) ||
-    item.shortCode.toLowerCase().includes(search.toLowerCase())
+    item.originalUrl
+      .toLowerCase()
+      .includes(search.toLowerCase()) ||
+
+    item.shortCode
+      .toLowerCase()
+      .includes(search.toLowerCase())
   );
 
   return (
+
     <div className="min-h-screen bg-gray-100 p-6">
 
       <Header
@@ -128,6 +177,21 @@ function Dashboard() {
         qrValue={qrValue}
         originalUrl={originalUrl}
         setQrValue={setQrValue}
+      />
+
+      <ExtendExpiryModal
+        show={showExtendModal}
+        onClose={() => {
+
+          setShowExtendModal(false);
+
+          setNewExpiry("");
+
+          setSelectedUrlId(null);
+        }}
+        onSave={submitExtend}
+        newExpiry={newExpiry}
+        setNewExpiry={setNewExpiry}
       />
 
       <input

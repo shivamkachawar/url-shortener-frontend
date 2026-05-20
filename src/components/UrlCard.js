@@ -1,4 +1,4 @@
-function UrlCard({ item, handleDelete, handleExtend, setQrValue }) {
+function UrlCard({ item, handleDelete, handleExtend, setQrValue, setOriginalUrl }) {
 
   const shortUrl = `https://snip--ly.vercel.app/${item.shortCode}`;
 
@@ -82,18 +82,8 @@ function UrlCard({ item, handleDelete, handleExtend, setQrValue }) {
             <button
               onClick={() => {
                 setQrValue(shortUrl);
-
-                setTimeout(() => {
-                  const qrSection = document.getElementById("qr-section");
-
-                  if (qrSection) {
-                    qrSection.scrollIntoView({
-                      behavior: "smooth",
-                      block: "center"
-                    });
-                  }
-                }, 100);
-              }}
+                setOriginalUrl(item.originalUrl);
+            }}
               className="px-3 py-1 text-sm rounded-lg bg-purple-50 text-purple-600 hover:bg-purple-100 transition"
             >
               QR

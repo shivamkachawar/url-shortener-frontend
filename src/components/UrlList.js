@@ -1,6 +1,6 @@
 import UrlCard from "./UrlCard";
 
-function UrlList({ filteredUrls, handleDelete, handleExtend, setQrValue }) {
+function UrlList({ filteredUrls, handleDelete, handleExtend, setQrValue, setOriginalUrl }) {
   return (
     <div className="bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl shadow-lg p-6 mt-6">
 
@@ -41,6 +41,7 @@ function UrlList({ filteredUrls, handleDelete, handleExtend, setQrValue }) {
               handleDelete={handleDelete}
               handleExtend={handleExtend}
               setQrValue={setQrValue}
+              setOriginalUrl={setOriginalUrl}
             />
           ))}
         </div>

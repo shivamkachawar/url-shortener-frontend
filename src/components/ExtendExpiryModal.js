@@ -25,13 +25,55 @@ function ExtendExpiryModal({
             Select new expiry date & time
           </label>
 
-          <input
-            type="datetime-local"
-            min={new Date().toISOString().slice(0, 16)}
-            value={newExpiry}
-            onChange={(e) => setNewExpiry(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+  {/* Date */}
+  <div className="space-y-2">
+
+    <label className="text-sm text-gray-500">
+      Expiry Date
+    </label>
+
+    <input
+      type="date"
+      min={new Date().toISOString().split("T")[0]}
+      value={newExpiry.split("T")[0] || ""}
+      onChange={(e) => {
+
+        const time =
+          newExpiry.split("T")[1] || "00:00";
+
+        setNewExpiry(`${e.target.value}T${time}`);
+      }}
+      className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+
+  </div>
+
+  {/* Time */}
+  <div className="space-y-2">
+
+    <label className="text-sm text-gray-500">
+      Expiry Time
+    </label>
+
+    <input
+      type="time"
+      value={newExpiry.split("T")[1] || ""}
+      onChange={(e) => {
+
+        const date =
+          newExpiry.split("T")[0] ||
+          new Date().toISOString().split("T")[0];
+
+        setNewExpiry(`${date}T${e.target.value}`);
+      }}
+      className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+
+  </div>
+
+</div>
 
         </div>
 

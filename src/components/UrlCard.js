@@ -73,7 +73,7 @@ function UrlCard({ item, handleDelete, handleExtend, setQrValue, setOriginalUrl 
             </button>
 
             <button
-              onClick={() => handleExtend(item.id)}
+              onClick={() => handleExtend(item.id, item.expiryDate)}
               className="px-3 py-1 text-sm rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
             >
               Extend

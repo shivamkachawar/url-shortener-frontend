@@ -110,12 +110,31 @@ function Dashboard() {
   };
 
   // OPEN MODAL
-  const handleExtend = (id) => {
+  const handleExtend = (id, expiryDate) => {
 
-    setSelectedUrlId(id);
+  setSelectedUrlId(id);
 
-    setShowExtendModal(true);
-  };
+  if (expiryDate) {
+
+    const formatted =
+      new Date(expiryDate)
+        .toISOString()
+        .slice(0, 16);
+
+    setNewExpiry(formatted);
+
+  } else {
+
+    const now =
+      new Date()
+        .toISOString()
+        .slice(0, 16);
+
+    setNewExpiry(now);
+  }
+
+  setShowExtendModal(true);
+};
 
   // SAVE NEW EXPIRY
   const submitExtend = async () => {

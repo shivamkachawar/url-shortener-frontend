@@ -6,6 +6,14 @@ function CreateUrlCard({
   setQrValue,
   shortUrl
 }) {
+
+  const publicShortUrl = shortUrl
+    ? shortUrl.replace(
+        "https://sniply-backend.onrender.com/api/",
+        "https://snip--ly.vercel.app/"
+      )
+    : "";
+
   return (
     <div className="bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl shadow-lg p-6 mb-6">
 
@@ -55,6 +63,7 @@ function CreateUrlCard({
           <button
             onClick={() => {
               if (!url) return alert("Enter URL first");
+
               setQrValue(url);
             }}
             className="flex-1 border border-purple-400 text-purple-600 py-2 rounded-lg font-semibold hover:bg-purple-50 transition"
@@ -76,17 +85,17 @@ function CreateUrlCard({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 
             <a
-              href={shortUrl}
+              href={publicShortUrl}
               target="_blank"
               rel="noreferrer"
               className="text-indigo-600 underline break-all"
             >
-              {shortUrl}
+              {publicShortUrl}
             </a>
 
             <button
               onClick={() => {
-                navigator.clipboard.writeText(shortUrl);
+                navigator.clipboard.writeText(publicShortUrl);
                 alert("Copied!");
               }}
               className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition"

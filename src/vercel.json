@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:shortCode",
+      "destination": "https://sniply-backend.onrender.com/api/:shortCode"
+    }
+  ]
+}

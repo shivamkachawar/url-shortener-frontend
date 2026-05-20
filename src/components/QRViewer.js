@@ -1,6 +1,10 @@
 import { QRCodeCanvas } from "qrcode.react";
 
-function QRViewer({ qrValue, setQrValue }) {
+function QRViewer({
+  qrValue,
+  originalUrl,
+  setQrValue
+}) {
   if (!qrValue) return null;
 
   return (
@@ -10,7 +14,7 @@ function QRViewer({ qrValue, setQrValue }) {
     >
       <div className="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-6 w-full max-w-md text-center relative">
 
-        {/* ❌ Close button (top right) */}
+        {/* ❌ Close button */}
         <button
           onClick={() => setQrValue("")}
           className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-lg transition"
@@ -19,21 +23,38 @@ function QRViewer({ qrValue, setQrValue }) {
         </button>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-3xl font-bold text-gray-800 mb-4">
           QR Code
         </h3>
 
-        {/* URL */}
-        <p className="text-sm text-gray-500 mb-3 break-all">
+        {/* Short URL */}
+        <p className="text-gray-500 text-sm mb-1">
+          Short URL
+        </p>
+
+        <p className="text-indigo-600 font-medium break-all mb-4">
           {qrValue}
         </p>
 
+        {/* Original URL */}
+        <p className="text-gray-500 text-sm mb-1">
+          Redirects To
+        </p>
+
+        <p className="text-gray-700 break-all mb-6">
+          {originalUrl}
+        </p>
+
         {/* QR Box */}
-        <div className="flex justify-center p-4 bg-white rounded-xl shadow-inner mb-4">
-          <QRCodeCanvas id="qrCanvas" value={qrValue} size={160} />
+        <div className="flex justify-center p-4 bg-white rounded-2xl shadow-inner mb-6">
+          <QRCodeCanvas
+            id="qrCanvas"
+            value={qrValue}
+            size={220}
+          />
         </div>
 
-        {/* Actions */}
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
 
           <button

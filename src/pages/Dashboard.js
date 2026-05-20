@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { createShortUrl, getMyUrls, deleteUrl, updateExpiry, getCurrentUser } from "../services/api";
+import {
+  createShortUrl,
+  getMyUrls,
+  deleteUrl,
+  updateExpiry,
+  getCurrentUser
+} from "../services/api";
 
 import Header from "../components/Header";
 import CreateUrlCard from "../components/CreateUrlCard";
@@ -15,13 +21,16 @@ function Dashboard() {
   const [search, setSearch] = useState("");
   const [customCode, setCustomCode] = useState("");
   const [username, setUsername] = useState("");
+
+  // QR states
   const [qrValue, setQrValue] = useState("");
+  const [originalUrl, setOriginalUrl] = useState("");
 
   useEffect(() => {
     fetchUrls();
 
     getCurrentUser().then((data) => {
-        setUsername(data.username);  // 🔥 FIX
+      setUsername(data.username);
     });
   }, []);
 
@@ -39,12 +48,18 @@ function Dashboard() {
       const data = await createShortUrl(url, expiry, customCode);
 
       if (data && data.shortCode) {
-        const fullUrl = `https://sniply-backend.onrender.com/api/${data.shortCode}`;
+
+        // ✅ frontend short URL
+        const fullUrl = `https://snip--ly.vercel.app/${data.shortCode}`;
+
         setShortUrl(fullUrl);
+
         setUrl("");
         setExpiry("");
         setCustomCode("");
+
         fetchUrls();
+
       } else {
         alert(data?.error || "Error creating short URL");
       }
@@ -73,6 +88,7 @@ function Dashboard() {
 
   const handleExtend = async (id) => {
     const newExpiry = prompt("Enter new expiry (YYYY-MM-DDTHH:MM)");
+
     if (!newExpiry) return;
 
     try {
@@ -89,41 +105,49 @@ function Dashboard() {
   );
 
   return (
-  <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6">
 
-    <Header username={username} handleLogout={handleLogout} />
+      <Header
+        username={username}
+        handleLogout={handleLogout}
+      />
 
-    <CreateUrlCard
-      url={url}
-      setUrl={setUrl}
-      expiry={expiry}
-      setExpiry={setExpiry}
-      customCode={customCode}
-      setCustomCode={setCustomCode}
-      handleShorten={handleShorten}
-      setQrValue={setQrValue}
-      shortUrl={shortUrl}
-    />
+      <CreateUrlCard
+        url={url}
+        setUrl={setUrl}
+        expiry={expiry}
+        setExpiry={setExpiry}
+        customCode={customCode}
+        setCustomCode={setCustomCode}
+        handleShorten={handleShorten}
+        setQrValue={setQrValue}
+        shortUrl={shortUrl}
+      />
 
-    <QRViewer qrValue={qrValue} setQrValue={setQrValue} />
+      <QRViewer
+        qrValue={qrValue}
+        originalUrl={originalUrl}
+        setQrValue={setQrValue}
+      />
 
-    <input
-      type="text"
-      placeholder="Search URLs..."
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      className="border p-2 rounded mb-4 w-full"
-    />
+      <input
+        type="text"
+        placeholder="Search URLs..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="border p-2 rounded mb-4 w-full"
+      />
 
-    <UrlList
-      filteredUrls={filteredUrls}
-      handleDelete={handleDelete}
-      handleExtend={handleExtend}
-      setQrValue={setQrValue}
-    />
+      <UrlList
+        filteredUrls={filteredUrls}
+        handleDelete={handleDelete}
+        handleExtend={handleExtend}
+        setQrValue={setQrValue}
+        setOriginalUrl={setOriginalUrl}
+      />
 
-  </div>
-);
+    </div>
+  );
 }
 
 export default Dashboard;

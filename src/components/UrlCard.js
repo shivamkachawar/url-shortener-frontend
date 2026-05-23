@@ -8,16 +8,15 @@ function UrlCard({
   setOriginalUrl
 }) {
 
-  if (!item) return null;
+  
 
   const [expanded, setExpanded] = useState(false);
-
+  if (!item || !item.shortCode) return null;
   const shortUrl = `https://snip--ly.vercel.app/${item.shortCode}`;
 
   return (
 
-    <div className="group relative overflow-hidden bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[24px] shadow-[0_10px_40px_rgba(0,0,0,0.06)] transition-all duration-300">
-
+<div className="group relative overflow-hidden bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[24px] shadow-[0_10px_40px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
       {/* Glow */}
       <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-300 opacity-10 blur-3xl rounded-full"></div>
 

@@ -5,7 +5,7 @@ function Home({ onLogin, onRegister }) {
       <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-50 text-gray-900 overflow-hidden">
   
         {/* NAVBAR */}
-        <nav className="w-full px-6 md:px-12 py-6 flex items-center justify-between">
+        <nav className="w-full px-5 sm:px-6 md:px-12 py-5 md:py-6 flex items-center justify-between">
   
           <div className="flex items-center gap-3">
   
@@ -46,7 +46,7 @@ function Home({ onLogin, onRegister }) {
         </nav>
   
         {/* HERO */}
-        <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 grid md:grid-cols-2 gap-16 items-center">
+        <section className="max-w-7xl mx-auto px-5 sm:px-6 md:px-12 py-10 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
   
           {/* LEFT */}
           <div>
@@ -57,7 +57,7 @@ function Home({ onLogin, onRegister }) {
   
             </div>
   
-            <h1 className="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight md:leading-[1.05] tracking-tight">
   
               Short links,
               <br />
@@ -68,7 +68,7 @@ function Home({ onLogin, onRegister }) {
   
             </h1>
   
-            <p className="mt-8 text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
+            <p className="mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
   
               Create elegant short URLs, generate QR codes,
               manage expiration dates and track clicks —
@@ -77,18 +77,18 @@ function Home({ onLogin, onRegister }) {
             </p>
   
             {/* CTA */}
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row gap-4 mt-8 md:mt-10">
   
               <button
                 onClick={onLogin}
-                className="px-7 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold shadow-xl hover:scale-105 transition"
+                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold shadow-xl hover:scale-105 transition"
               >
                 Login
               </button>
   
               <button
                 onClick={onRegister}
-                className="px-7 py-4 rounded-2xl border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-100 transition"
+                className="w-full sm:w-auto px-7 py-4 rounded-2xl border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-100 transition"
               >
                 Create Account
               </button>
@@ -96,7 +96,7 @@ function Home({ onLogin, onRegister }) {
             </div>
   
             {/* Social Proof */}
-            <div className="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-500">
+            <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500">
   
               <div className="flex items-center gap-2">
                 ⚡ Fast Redirects
@@ -120,8 +120,10 @@ function Home({ onLogin, onRegister }) {
               </div>
   
               <div className="text-sm text-gray-500 leading-relaxed">
+  
                 Sniply is hosted on free infrastructure for demo and learning purposes.
                 First request may take 30–60 seconds while the backend wakes up.
+  
               </div>
   
             </div>
@@ -129,12 +131,12 @@ function Home({ onLogin, onRegister }) {
           </div>
   
           {/* RIGHT */}
-          <div className="relative">
+          <div className="relative w-full">
   
             {/* Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 blur-3xl opacity-20 rounded-full scale-110"></div>
   
-            <div className="relative bg-white/80 backdrop-blur-xl border border-white/60 rounded-[32px] shadow-2xl p-8">
+            <div className="relative bg-white/80 backdrop-blur-xl border border-white/60 rounded-[28px] shadow-2xl p-5 sm:p-6 md:p-8">
   
               {/* Browser bar */}
               <div className="flex items-center gap-2 mb-6">
@@ -152,7 +154,7 @@ function Home({ onLogin, onRegister }) {
                   Original URL
                 </div>
   
-                <div className="text-gray-700 truncate font-medium">
+                <div className="text-gray-700 truncate font-medium text-sm sm:text-base">
                   https://www.youtube.com/watch?v=dQw4w9WgXcQ
                 </div>
   
@@ -170,14 +172,14 @@ function Home({ onLogin, onRegister }) {
                   Short URL
                 </div>
   
-                <div className="text-3xl font-black break-all">
+                <div className="text-lg sm:text-2xl md:text-3xl font-black break-all">
                   snip--ly.vercel.app/x7KpQ2
                 </div>
   
               </div>
   
               {/* Features */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
   
                 <div className="bg-indigo-50 rounded-2xl p-5 hover:scale-105 transition">
   
@@ -244,7 +246,7 @@ function Home({ onLogin, onRegister }) {
         </section>
   
         {/* HOW IT WORKS */}
-        <section className="max-w-6xl mx-auto px-6 md:px-12 py-24">
+        <section className="max-w-6xl mx-auto px-5 sm:px-6 md:px-12 py-16 md:py-24">
   
           <div className="text-center mb-16">
   
@@ -252,13 +254,13 @@ function Home({ onLogin, onRegister }) {
               HOW IT WORKS
             </div>
   
-            <h2 className="text-4xl md:text-5xl font-black">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight">
               Create short links in seconds
             </h2>
   
           </div>
   
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
   
             <div className="bg-white/70 backdrop-blur-md border border-gray-200 rounded-3xl p-8 shadow-lg">
   
@@ -309,7 +311,7 @@ function Home({ onLogin, onRegister }) {
         {/* FOOTER */}
         <footer className="border-t border-gray-200 mt-10">
   
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-12 py-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 text-center md:text-left">
   
             <div>
   
@@ -347,7 +349,7 @@ function Home({ onLogin, onRegister }) {
   
           </div>
   
-          <div className="text-center text-sm text-gray-400 pb-8">
+          <div className="text-center text-sm text-gray-400 pb-8 px-4">
   
             © 2026 Sniply • Built by Shivam Kachawar
   

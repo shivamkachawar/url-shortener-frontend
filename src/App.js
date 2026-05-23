@@ -4,12 +4,15 @@ import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Home from "./pages/Home";
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [isLogin, setIsLogin] = useState(true);
   const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(true);
+  const [showHome, setShowHome] = useState(true);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -26,21 +29,48 @@ function App() {
 
   // 🔐 Not logged in
   if (!isLoggedIn) {
+
+  // HOME PAGE
+  if (showHome) {
+
     return (
-      <div className="min-h-screen bg-gray-100">
-
-        <div className="text-center py-6">
-          <h1 className="text-3xl font-bold">URL Shortener</h1>
-        </div>
-
-        {isLogin
-          ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />
-          : <Register setIsLogin={setIsLogin} />
-        }
-
-      </div>
+      <Home
+        onLogin={() => {
+          setShowHome(false);
+          setIsLogin(true);
+        }}
+        onRegister={() => {
+          setShowHome(false);
+          setIsLogin(false);
+        }}
+      />
     );
   }
+
+  // LOGIN / REGISTER
+  return (
+
+    <div className="min-h-screen bg-gray-100">
+
+      <div className="text-center py-6">
+
+        <button
+          onClick={() => setShowHome(true)}
+          className="text-indigo-600 hover:underline text-sm mb-4"
+        >
+          ← Back to Home
+        </button>
+
+      </div>
+
+      {isLogin
+        ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />
+        : <Register setIsLogin={setIsLogin} />
+      }
+
+    </div>
+  );
+}
 
   // ⏳ Loading user info
   if (!user) {

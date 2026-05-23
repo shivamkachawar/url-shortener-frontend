@@ -6,66 +6,231 @@ function RegisterForm({
   handleRegister,
   setIsLogin
 }) {
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-100 px-4">
 
-      {/* Background Blobs */}
-      <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-purple-300 opacity-30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-[-120px] right-[-120px] w-[350px] h-[350px] bg-indigo-300 opacity-30 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 overflow-hidden relative flex items-center justify-center px-6 py-10">
 
-      {/* Card */}
-      <div className="relative z-10 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl p-8 w-full max-w-sm">
+      {/* BACKGROUND GLOW */}
+      <div className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-purple-300 opacity-30 rounded-full blur-3xl"></div>
 
-        {/* Brand */}
-        <div className="text-center mb-6">
-          
-          <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Sniply
+      <div className="absolute bottom-[-180px] right-[-180px] w-[450px] h-[450px] bg-indigo-300 opacity-30 rounded-full blur-3xl"></div>
+
+      {/* MAIN CONTAINER */}
+      <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+
+        {/* LEFT SIDE */}
+        <div className="hidden lg:block">
+
+          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold shadow-sm mb-8">
+
+            🚀 Create Your Account
+
+          </div>
+
+          <h1 className="text-6xl font-black leading-tight tracking-tight text-gray-900">
+
+            Join the future of
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+              smart links.
+            </span>
+
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Create your account
+
+          <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-xl">
+
+            Sniply helps you create beautiful short URLs,
+            generate QR codes, track analytics and manage
+            expiration dates with a premium modern experience.
+
           </p>
+
+          {/* FEATURES */}
+          <div className="grid grid-cols-2 gap-4 mt-10 max-w-xl">
+
+            <div className="bg-white/70 backdrop-blur-md border border-white/60 rounded-2xl p-5 shadow-lg">
+
+              <div className="text-3xl mb-3">🔗</div>
+
+              <div className="font-bold text-gray-800">
+                Custom URLs
+              </div>
+
+              <div className="text-sm text-gray-500 mt-1">
+                Personalized short links
+              </div>
+
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-md border border-white/60 rounded-2xl p-5 shadow-lg">
+
+              <div className="text-3xl mb-3">📱</div>
+
+              <div className="font-bold text-gray-800">
+                QR Sharing
+              </div>
+
+              <div className="text-sm text-gray-500 mt-1">
+                Instant QR generation
+              </div>
+
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-md border border-white/60 rounded-2xl p-5 shadow-lg">
+
+              <div className="text-3xl mb-3">📊</div>
+
+              <div className="font-bold text-gray-800">
+                Analytics
+              </div>
+
+              <div className="text-sm text-gray-500 mt-1">
+                Real-time click tracking
+              </div>
+
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-md border border-white/60 rounded-2xl p-5 shadow-lg">
+
+              <div className="text-3xl mb-3">🛡️</div>
+
+              <div className="font-bold text-gray-800">
+                Secure Access
+              </div>
+
+              <div className="text-sm text-gray-500 mt-1">
+                JWT-based authentication
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
-        {/* Inputs */}
-        <div className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/90"
-          />
+        {/* RIGHT SIDE REGISTER CARD */}
+        <div className="w-full flex justify-center">
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/90"
-          />
+          <div className="w-full max-w-md bg-white/75 backdrop-blur-xl border border-white/60 rounded-[32px] shadow-2xl p-8 md:p-10">
 
-          {/* Register Button */}
-          <button
-            onClick={handleRegister}
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition shadow-md"
-          >
-            Create Account
-          </button>
+            {/* TOP */}
+            <div className="text-center mb-8">
+
+              <div className="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-3xl font-black shadow-xl mb-5">
+
+                S
+
+              </div>
+
+              <h1 className="text-4xl font-black text-gray-900">
+                Create Account
+              </h1>
+
+              <p className="text-gray-500 mt-2">
+                Start shortening links with Sniply
+              </p>
+
+            </div>
+
+            {/* FORM */}
+            <div className="space-y-5">
+
+              {/* Username */}
+              <div>
+
+                <label className="text-sm font-semibold text-gray-600 block mb-2">
+                  Username
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Choose a username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 shadow-sm"
+                />
+
+              </div>
+
+              {/* Password */}
+              <div>
+
+                <label className="text-sm font-semibold text-gray-600 block mb-2">
+                  Password
+                </label>
+
+                <input
+                  type="password"
+                  placeholder="Create a secure password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-700 shadow-sm"
+                />
+
+              </div>
+
+              {/* BUTTON */}
+              <button
+                onClick={handleRegister}
+                className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] hover:shadow-2xl transition-all"
+              >
+                Create Account
+              </button>
+
+            </div>
+
+            {/* FOOTER */}
+            <div className="mt-8 text-center">
+
+              <p className="text-gray-500">
+
+                Already have an account?{" "}
+
+                <span
+                  className="text-indigo-600 font-semibold cursor-pointer hover:text-purple-600 transition"
+                  onClick={() => setIsLogin(true)}
+                >
+                  Login
+                </span>
+
+              </p>
+
+            </div>
+
+            {/* NOTICE */}
+            <div className="mt-8 bg-purple-50 border border-purple-100 rounded-2xl p-4">
+
+              <div className="text-sm font-semibold text-purple-700 mb-1">
+                Premium experience
+              </div>
+
+              <div className="text-xs text-gray-500 leading-relaxed">
+                Create and manage short links beautifully with analytics,
+                QR generation and expiry controls.
+              </div>
+
+            </div>
+
+            {/* FOOTER LINK */}
+            <div className="mt-6 text-center">
+
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-gray-400 hover:text-indigo-600 transition"
+              >
+                Built with React + Spring Boot
+              </a>
+
+            </div>
+
+          </div>
+
         </div>
-
-        {/* Footer */}
-        <p className="text-sm mt-5 text-center text-gray-500">
-          Already have an account?{" "}
-          <span
-            className="text-indigo-600 font-medium cursor-pointer hover:underline"
-            onClick={() => setIsLogin(true)}
-          >
-            Login
-          </span>
-        </p>
 
       </div>
+
     </div>
   );
 }

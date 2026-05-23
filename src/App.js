@@ -11,7 +11,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [isLogin, setIsLogin] = useState(true);
   const [user, setUser] = useState(null);
-  const [isLogin, setIsLogin] = useState(true);
   const [showHome, setShowHome] = useState(true);
 
   useEffect(() => {

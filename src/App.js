@@ -5,6 +5,7 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
 
@@ -73,7 +74,7 @@ function App() {
 
   // ⏳ Loading user info
   if (!user) {
-    return <div className="p-6">Loading... It may take a minute as the project is using a free tier hosting service.</div>;
+    return <LoadingScreen />;
   }
 
   // 👑 Admin

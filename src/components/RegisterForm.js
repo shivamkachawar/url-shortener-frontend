@@ -4,20 +4,21 @@ function RegisterForm({
   password,
   setPassword,
   handleRegister,
-  setIsLogin
+  setIsLogin,
+  loading
 }) {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 overflow-hidden relative flex items-center justify-center px-6 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 overflow-hidden relative flex items-center justify-center px-4 sm:px-6 py-6 sm:py-10">
 
       {/* BACKGROUND GLOW */}
-      <div className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-purple-300 opacity-30 rounded-full blur-3xl"></div>
+      <div className="absolute top-[-150px] left-[-150px] w-[320px] sm:w-[400px] h-[320px] sm:h-[400px] bg-purple-300 opacity-30 rounded-full blur-3xl"></div>
 
-      <div className="absolute bottom-[-180px] right-[-180px] w-[450px] h-[450px] bg-indigo-300 opacity-30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-[-180px] right-[-180px] w-[350px] sm:w-[450px] h-[350px] sm:h-[450px] bg-indigo-300 opacity-30 rounded-full blur-3xl"></div>
 
       {/* MAIN CONTAINER */}
-      <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
 
         {/* LEFT SIDE */}
         <div className="hidden lg:block">
@@ -31,8 +32,11 @@ function RegisterForm({
           <h1 className="text-6xl font-black leading-tight tracking-tight text-gray-900">
 
             Join the future of
+
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+
               smart links.
+
             </span>
 
           </h1>
@@ -111,23 +115,25 @@ function RegisterForm({
         {/* RIGHT SIDE REGISTER CARD */}
         <div className="w-full flex justify-center">
 
-          <div className="w-full max-w-md bg-white/75 backdrop-blur-xl border border-white/60 rounded-[32px] shadow-2xl p-8 md:p-10">
+          <div className="w-full max-w-md bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[28px] sm:rounded-[32px] shadow-2xl p-6 sm:p-8 md:p-10">
 
             {/* TOP */}
             <div className="text-center mb-8">
 
-              <div className="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-3xl font-black shadow-xl mb-5">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-3xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-xl mb-5">
 
                 S
 
               </div>
 
-              <h1 className="text-4xl font-black text-gray-900">
+              <h1 className="text-3xl sm:text-4xl font-black text-gray-900">
                 Create Account
               </h1>
 
-              <p className="text-gray-500 mt-2">
+              <p className="text-sm sm:text-base text-gray-500 mt-2 leading-relaxed">
+
                 Start shortening links with Sniply
+
               </p>
 
             </div>
@@ -139,7 +145,9 @@ function RegisterForm({
               <div>
 
                 <label className="text-sm font-semibold text-gray-600 block mb-2">
+
                   Username
+
                 </label>
 
                 <input
@@ -147,7 +155,8 @@ function RegisterForm({
                   placeholder="Choose a username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 shadow-sm"
+                  disabled={loading}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 shadow-sm disabled:opacity-60"
                 />
 
               </div>
@@ -156,7 +165,9 @@ function RegisterForm({
               <div>
 
                 <label className="text-sm font-semibold text-gray-600 block mb-2">
+
                   Password
+
                 </label>
 
                 <input
@@ -164,7 +175,8 @@ function RegisterForm({
                   placeholder="Create a secure password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-700 shadow-sm"
+                  disabled={loading}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-700 shadow-sm disabled:opacity-60"
                 />
 
               </div>
@@ -172,9 +184,27 @@ function RegisterForm({
               {/* BUTTON */}
               <button
                 onClick={handleRegister}
-                className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] hover:shadow-2xl transition-all"
+                disabled={loading}
+                className={`w-full py-4 rounded-2xl font-bold text-base sm:text-lg shadow-xl transition-all flex items-center justify-center gap-3 ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed text-white"
+                    : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:scale-[1.02] hover:shadow-2xl"
+                }`}
               >
-                Create Account
+
+                {loading ? (
+                  <>
+
+                    {/* Spinner */}
+                    <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+
+                    Creating account...
+
+                  </>
+                ) : (
+                  "Create Account"
+                )}
+
               </button>
 
             </div>
@@ -182,15 +212,17 @@ function RegisterForm({
             {/* FOOTER */}
             <div className="mt-8 text-center">
 
-              <p className="text-gray-500">
+              <p className="text-sm sm:text-base text-gray-500 leading-relaxed">
 
                 Already have an account?{" "}
 
                 <span
                   className="text-indigo-600 font-semibold cursor-pointer hover:text-purple-600 transition"
-                  onClick={() => setIsLogin(true)}
+                  onClick={() => !loading && setIsLogin(true)}
                 >
+
                   Login
+
                 </span>
 
               </p>
@@ -201,12 +233,16 @@ function RegisterForm({
             <div className="mt-8 bg-purple-50 border border-purple-100 rounded-2xl p-4">
 
               <div className="text-sm font-semibold text-purple-700 mb-1">
+
                 Premium experience
+
               </div>
 
-              <div className="text-xs text-gray-500 leading-relaxed">
+              <div className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+
                 Create and manage short links beautifully with analytics,
                 QR generation and expiry controls.
+
               </div>
 
             </div>
@@ -220,7 +256,9 @@ function RegisterForm({
                 rel="noreferrer"
                 className="text-sm text-gray-400 hover:text-indigo-600 transition"
               >
+
                 Built with React + Spring Boot
+
               </a>
 
             </div>
@@ -234,8 +272,5 @@ function RegisterForm({
     </div>
   );
 }
-
-
-
 
 export default RegisterForm;

@@ -1,111 +1,214 @@
-function UrlCard({ item, handleDelete, handleExtend, setQrValue, setOriginalUrl }) {
+function UrlCard({
+  item,
+  handleDelete,
+  handleExtend,
+  setQrValue,
+  setOriginalUrl
+}) {
 
   const shortUrl = `https://snip--ly.vercel.app/${item.shortCode}`;
 
   return (
-    <div className="bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl shadow-md p-5 mb-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
 
-      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+    <div className="group relative overflow-hidden bg-white/75 backdrop-blur-2xl border border-white/60 rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.06)] p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
 
-        {/* LEFT SIDE */}
+      {/* Glow */}
+      <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-300 opacity-10 blur-3xl rounded-full"></div>
+
+      <div className="relative z-10 flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
+
+        {/* LEFT */}
         <div className="flex-1 min-w-0">
 
+          {/* Label */}
+          <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-semibold mb-4">
+
+            🔗 Active Short Link
+
+          </div>
+
           {/* Original URL */}
-          <p className="text-sm text-gray-500 truncate">
-            {item.originalUrl}
-          </p>
+          <div className="mb-5">
 
-          {/* Full Short URL */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
+            <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">
 
-            <a
-              href={shortUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-lg font-semibold text-indigo-600 hover:text-purple-600 hover:underline break-all transition"
-            >
-              {shortUrl}
-            </a>
+              Original URL
 
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(shortUrl);
-                alert("Short URL copied");
-              }}
-              className="px-3 py-1 text-xs font-medium rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition w-fit"
-            >
-              Copy
-            </button>
+            </div>
+
+            <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4 text-sm text-gray-600 break-all leading-relaxed">
+
+              {item.originalUrl}
+
+            </div>
+
+          </div>
+
+          {/* Short URL */}
+          <div>
+
+            <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">
+
+              Short URL
+
+            </div>
+
+            <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+
+              <a
+                href={shortUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-lg sm:text-xl font-black text-indigo-600 hover:text-purple-600 break-all transition"
+              >
+
+                {shortUrl}
+
+              </a>
+
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(shortUrl);
+                  alert("Short URL copied");
+                }}
+                className="w-fit px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 font-semibold hover:bg-indigo-100 transition"
+              >
+
+                Copy
+
+              </button>
+
+            </div>
 
           </div>
 
           {/* Metadata */}
-          <div className="mt-3 text-xs text-gray-400 space-y-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
 
-            <div>
-              Created: {new Date(item.createdAt).toLocaleString()}
+            {/* Created */}
+            <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4">
+
+              <div className="text-xs text-gray-400 mb-1">
+                Created
+              </div>
+
+              <div className="text-sm font-semibold text-gray-700">
+
+                {new Date(item.createdAt).toLocaleString()}
+
+              </div>
+
             </div>
 
-            <div>
-              Expires:{" "}
-              {item.expiryDate
-                ? new Date(item.expiryDate).toLocaleString()
-                : "N/A"}
+            {/* Expiry */}
+            <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4">
+
+              <div className="text-xs text-gray-400 mb-1">
+                Expires
+              </div>
+
+              <div className="text-sm font-semibold text-gray-700">
+
+                {item.expiryDate
+                  ? new Date(item.expiryDate).toLocaleString()
+                  : "No expiry"}
+
+              </div>
+
             </div>
 
-            <div>
-              Last Accessed:{" "}
-              {item.lastAccessedAt
-                ? new Date(item.lastAccessedAt).toLocaleString()
-                : "Never"}
+            {/* Last Accessed */}
+            <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4">
+
+              <div className="text-xs text-gray-400 mb-1">
+                Last Accessed
+              </div>
+
+              <div className="text-sm font-semibold text-gray-700">
+
+                {item.lastAccessedAt
+                  ? new Date(item.lastAccessedAt).toLocaleString()
+                  : "Never"}
+
+              </div>
+
             </div>
 
           </div>
 
           {/* Actions */}
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3 mt-6">
 
             <button
               onClick={() => handleDelete(item.id)}
-              className="px-3 py-1 text-sm rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
+              className="px-5 py-3 rounded-2xl bg-red-50 text-red-600 font-semibold hover:bg-red-100 transition"
             >
-              Delete
+
+              🗑 Delete
+
             </button>
 
             <button
               onClick={() => handleExtend(item.id, item.expiryDate)}
-              className="px-3 py-1 text-sm rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+              className="px-5 py-3 rounded-2xl bg-blue-50 text-blue-600 font-semibold hover:bg-blue-100 transition"
             >
-              Extend
+
+              ⏳ Extend
+
             </button>
 
             <button
               onClick={() => {
                 setQrValue(shortUrl);
                 setOriginalUrl(item.originalUrl);
-            }}
-              className="px-3 py-1 text-sm rounded-lg bg-purple-50 text-purple-600 hover:bg-purple-100 transition"
+              }}
+              className="px-5 py-3 rounded-2xl bg-purple-50 text-purple-600 font-semibold hover:bg-purple-100 transition"
             >
-              QR
+
+              📱 QR Code
+
             </button>
 
           </div>
+
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-2">
+        {/* RIGHT */}
+        <div className="xl:w-[180px]">
 
-          <div className="text-xs uppercase tracking-wide text-gray-400">
-            Clicks
-          </div>
+          <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-[28px] p-6 text-white shadow-2xl relative overflow-hidden">
 
-          <div className="px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold text-sm shadow">
-            {item.clickCount}
+            {/* Glow */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+
+            <div className="relative z-10">
+
+              <div className="text-sm uppercase tracking-wider opacity-80 mb-3">
+
+                Total Clicks
+
+              </div>
+
+              <div className="text-5xl font-black leading-none">
+
+                {item.clickCount}
+
+              </div>
+
+              <div className="mt-5 text-sm text-white/80">
+
+                Real-time analytics tracking
+
+              </div>
+
+            </div>
+
           </div>
 
         </div>
 
       </div>
+
     </div>
   );
 }

@@ -80,7 +80,7 @@ function ExpiredPage() {
 
       {/* Frontend */}
       <a
-        href="https://github.com/YOUR_USERNAME/frontend-repo"
+        href="https://github.com/shivamkachawar/url-shortener-frontend"
         target="_blank"
         rel="noreferrer"
         className="flex items-center gap-3 px-5 py-4 hover:bg-indigo-50 transition"
@@ -112,7 +112,7 @@ function ExpiredPage() {
 
       {/* Backend */}
       <a
-        href="https://github.com/YOUR_USERNAME/backend-repo"
+        href="https://github.com/shivamkachawar/url-shortner"
         target="_blank"
         rel="noreferrer"
         className="flex items-center gap-3 px-5 py-4 hover:bg-purple-50 transition border-t border-gray-100"

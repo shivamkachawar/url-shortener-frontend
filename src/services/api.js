@@ -22,7 +22,9 @@ export async function createShortUrl(url, expiry, customCode) {
     },
     body: JSON.stringify({
       url,
-      expiry,
+      expiry: expiry
+        ? new Date(expiry).toISOString()
+        : null,
       customCode
     }),
   });
@@ -67,10 +69,15 @@ export async function deleteUrl(id) {
 }
 
 export async function updateExpiry(id, expiry) {
+
   const token = localStorage.getItem("token");
 
+  const formattedExpiry = expiry
+    ? new Date(expiry).toISOString()
+    : null;
+
   await fetch(
-    `${BASE_URL}/api/expiry/${id}?expiry=${expiry}`,
+    `${BASE_URL}/api/expiry/${id}?expiry=${encodeURIComponent(formattedExpiry)}`,
     {
       method: "PUT",
       headers: {

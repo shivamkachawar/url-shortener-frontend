@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/:shortCode",
-      "destination": "https://sniply-backend.onrender.com/api/:shortCode"
+      "source": "/api/(.*)",
+      "destination": "https://sniply-backend.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

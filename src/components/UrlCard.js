@@ -31,12 +31,21 @@ function UrlCard({
           {/* LEFT */}
           <div className="flex-1 min-w-0">
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-3">
+          <div
+  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-3 ${
+    item.expiryDate &&
+    new Date(item.expiryDate) < new Date()
+      ? "bg-red-100 text-red-700"
+      : "bg-indigo-100 text-indigo-700"
+  }`}
+>
 
-              🔗 Active Link
+  {item.expiryDate &&
+  new Date(item.expiryDate) < new Date()
+    ? "⛔ Expired"
+    : "🔗 Active Link"}
 
-            </div>
+</div>
 
             {/* Short URL */}
             <div className="text-indigo-600 font-black text-sm sm:text-lg break-all leading-relaxed">

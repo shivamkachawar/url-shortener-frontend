@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import LoadingScreen from "./components/LoadingScreen";
+import ExpiredPage from "./pages/ExpiredPage";
 
 function App() {
 
@@ -26,6 +27,10 @@ function App() {
         });
     }
   }, [isLoggedIn]);
+
+  if (window.location.pathname === "/expired") {
+    return <ExpiredPage />;
+  }
 
   // 🔐 Not logged in
   if (!isLoggedIn) {

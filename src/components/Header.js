@@ -152,7 +152,7 @@ function Header({ username, handleLogout }) {
 
   {/* Frontend */}
   <a
-    href="https://github.com/YOUR_USERNAME/frontend-repo"
+    href="https://github.com/shivamkachawar/url-shortener-frontend"
     target="_blank"
     rel="noreferrer"
     className="w-full flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-gray-50 transition group"
@@ -188,7 +188,7 @@ function Header({ username, handleLogout }) {
 
   {/* Backend */}
   <a
-    href="https://github.com/YOUR_USERNAME/backend-repo"
+    href="https://github.com/shivamkachawar/url-shortner"
     target="_blank"
     rel="noreferrer"
     className="w-full flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-gray-50 transition group"

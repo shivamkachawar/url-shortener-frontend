@@ -57,16 +57,14 @@ function App() {
 
     <div className="min-h-screen bg-gray-100">
 
-      <div className="text-center py-6">
+<button
+  onClick={() => setShowHome(true)}
+  className="absolute top-5 left-5 sm:top-6 sm:left-6 z-50 text-indigo-600 hover:text-purple-600 transition text-sm font-semibold"
+>
 
-        <button
-          onClick={() => setShowHome(true)}
-          className="text-indigo-600 hover:underline text-sm mb-4"
-        >
-          ← Back to Home
-        </button>
+  ← Back to Home
 
-      </div>
+</button>
 
       {isLogin
         ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />

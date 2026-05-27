@@ -46,104 +46,86 @@ function ExpiredPage() {
             It may have expired or been removed by its owner.
   
           </p>
-  
+
           {/* Buttons */}
-          {/* Buttons */}
-<div className="mt-8 sm:mt-10 flex flex-col gap-4 justify-center items-center">
+<div className="mt-8 sm:mt-10 flex flex-col gap-4">
 
   {/* Home */}
   <a
     href="/"
-    className="w-full sm:w-[320px] px-6 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-xl hover:scale-[1.01] transition-all duration-300 text-sm sm:text-base text-center"
+    className="w-full px-6 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-xl hover:scale-[1.01] transition-all duration-300 text-sm sm:text-base text-center"
   >
 
     Go to Homepage
 
   </a>
 
-  {/* GitHub Dropdown */}
-  <div className="relative group w-full sm:w-auto">
+  {/* Repo Buttons */}
+  <div className="grid grid-cols-2 gap-4">
 
-    <button
-      className="w-full sm:w-[320px] px-6 py-4 rounded-2xl bg-white border border-gray-200 text-gray-700 font-bold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-sm"
+    {/* Frontend */}
+    <a
+      href="https://github.com/shivamkachawar/url-shortener-frontend"
+      target="_blank"
+      rel="noreferrer"
+      className="flex flex-col items-center justify-center gap-2 px-4 py-4 rounded-2xl bg-white border border-gray-200 hover:bg-indigo-50 transition-all duration-300 shadow-sm"
     >
 
-      View Project
+      <div className="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-xl">
 
-      <span className="text-sm transition-transform duration-200 group-hover:rotate-180">
-        ⌄
-      </span>
+        ⚛️
 
-    </button>
+      </div>
 
-    {/* Dropdown */}
-    <div className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 top-full mt-3 w-full sm:w-[320px] bg-white/95 backdrop-blur-2xl border border-gray-100 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
+      <div className="text-center">
 
-      {/* Frontend */}
-      <a
-        href="https://github.com/shivamkachawar/url-shortener-frontend"
-        target="_blank"
-        rel="noreferrer"
-        className="flex items-center gap-4 px-5 py-4 hover:bg-indigo-50 transition"
-      >
+        <div className="font-bold text-gray-800 text-sm sm:text-base">
 
-        <div className="w-11 h-11 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-lg">
-
-          ⚛️
+          Frontend
 
         </div>
 
-        <div className="text-left">
+        <div className="text-[11px] sm:text-xs text-gray-400 mt-1">
 
-          <div className="font-bold text-gray-800">
-
-            Frontend Repo
-
-          </div>
-
-          <div className="text-xs text-gray-400">
-
-            React + Tailwind + Vercel
-
-          </div>
+          React + Tailwind
 
         </div>
 
-      </a>
+      </div>
 
-      {/* Backend */}
-      <a
-        href="https://github.com/shivamkachawar/url-shortner"
-        target="_blank"
-        rel="noreferrer"
-        className="flex items-center gap-4 px-5 py-4 hover:bg-purple-50 transition border-t border-gray-100"
-      >
+    </a>
 
-        <div className="w-11 h-11 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 text-lg">
+    {/* Backend */}
+    <a
+      href="https://github.com/shivamkachawar/url-shortner"
+      target="_blank"
+      rel="noreferrer"
+      className="flex flex-col items-center justify-center gap-2 px-4 py-4 rounded-2xl bg-white border border-gray-200 hover:bg-purple-50 transition-all duration-300 shadow-sm"
+    >
 
-          ☕️
+      <div className="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 text-xl">
 
-        </div>
+        ☕️
 
-        <div className="text-left">
+      </div>
 
-          <div className="font-bold text-gray-800">
+      <div className="text-center">
 
-            Backend Repo
+        <div className="font-bold text-gray-800 text-sm sm:text-base">
 
-          </div>
-
-          <div className="text-xs text-gray-400">
-
-            Spring Boot + PostgreSQL
-
-          </div>
+          Backend
 
         </div>
 
-      </a>
+        <div className="text-[11px] sm:text-xs text-gray-400 mt-1">
 
-    </div>
+          Spring Boot + PostgreSQL
+
+        </div>
+
+      </div>
+
+    </a>
 
   </div>
 

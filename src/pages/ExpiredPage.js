@@ -76,73 +76,91 @@ function ExpiredPage() {
               </button>
   
               {/* Dropdown */}
-              <div className="absolute left-0 mt-3 w-full bg-white/95 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-  
-                {/* Frontend */}
-                <a
-                  href="https://github.com/shivamkachawar/url-shortener-frontend"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 px-4 py-4 hover:bg-indigo-50 transition"
-                >
-  
-                  <div className="w-10 h-10 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600">
-  
-                    ⚛️
-  
-                  </div>
-  
-                  <div className="text-left">
-  
-                    <div className="font-semibold text-gray-800 text-sm">
-  
-                      Frontend Repo
-  
-                    </div>
-  
-                    <div className="text-[11px] text-gray-400">
-  
-                      React + Tailwind + Vercel
-  
-                    </div>
-  
-                  </div>
-  
-                </a>
-  
-                {/* Backend */}
-                <a
-                  href="https://github.com/shivamkachawar/url-shortner"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 px-4 py-4 hover:bg-purple-50 transition border-t border-gray-100"
-                >
-  
-                  <div className="w-10 h-10 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600">
-  
-                    ☕️
-  
-                  </div>
-  
-                  <div className="text-left">
-  
-                    <div className="font-semibold text-gray-800 text-sm">
-  
-                      Backend Repo
-  
-                    </div>
-  
-                    <div className="text-[11px] text-gray-400">
-  
-                      Spring Boot + PostgreSQL
-  
-                    </div>
-  
-                  </div>
-  
-                </a>
-  
-              </div>
+              {/* GitHub Dropdown */}
+<div className="relative group w-full sm:w-auto">
+
+  <button
+    className="w-full sm:w-[260px] px-6 py-4 rounded-2xl bg-white border border-gray-200 text-gray-700 font-bold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-sm"
+  >
+
+    View Project
+
+    <span className="text-sm transition-transform duration-200 group-hover:rotate-180">
+      ⌄
+    </span>
+
+  </button>
+
+  {/* Dropdown */}
+  <div className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 top-full mt-3 w-full sm:w-[320px] bg-white/95 backdrop-blur-2xl border border-gray-100 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
+
+    {/* Frontend */}
+    <a
+      href="https://github.com/shivamkachawar/url-shortener-frontend"
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center gap-4 px-5 py-4 hover:bg-indigo-50 transition"
+    >
+
+      <div className="w-11 h-11 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-lg">
+
+        ⚛️
+
+      </div>
+
+      <div className="text-left">
+
+        <div className="font-bold text-gray-800">
+
+          Frontend Repo
+
+        </div>
+
+        <div className="text-xs text-gray-400">
+
+          React + Tailwind + Vercel
+
+        </div>
+
+      </div>
+
+    </a>
+
+    {/* Backend */}
+    <a
+      href="https://github.com/shivamkachawar/url-shortner"
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center gap-4 px-5 py-4 hover:bg-purple-50 transition border-t border-gray-100"
+    >
+
+      <div className="w-11 h-11 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 text-lg">
+
+        ☕️
+
+      </div>
+
+      <div className="text-left">
+
+        <div className="font-bold text-gray-800">
+
+          Backend Repo
+
+        </div>
+
+        <div className="text-xs text-gray-400">
+
+          Spring Boot + PostgreSQL
+
+        </div>
+
+      </div>
+
+    </a>
+
+  </div>
+
+</div>
   
             </div>
   

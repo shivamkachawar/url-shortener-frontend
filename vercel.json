@@ -9,7 +9,7 @@
       "destination": "https://sniply-backend.onrender.com/api/:shortCode"
     },
     {
-      "source": "/(.*)",
+      "source": "/test123",
       "destination": "/index.html"
     }
   ]

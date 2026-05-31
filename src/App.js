@@ -58,13 +58,12 @@ function App() {
     <div className="min-h-screen bg-gray-100">
 
 <button
-  onClick={() => setShowHome(true)}
-  className="absolute top-5 left-5 sm:top-6 sm:left-6 z-50 text-indigo-600 hover:text-purple-600 transition text-sm font-semibold"
+onClick={() => setShowHome(true)}
+className="absolute top-3 left-3 sm:top-6 sm:left-6 z-50 text-indigo-600 hover:text-purple-600 transition text-xs sm:text-sm font-semibold flex items-center gap-1"
 >
-
-  ← Back to Home
-
+← Back to Home
 </button>
+
 
       {isLogin
         ? <Login setIsLoggedIn={setIsLoggedIn} setIsLogin={setIsLogin} />

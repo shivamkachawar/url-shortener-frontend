@@ -44,18 +44,29 @@ export async function getMyUrls() {
 
   return response.json();
 }
-export async function registerUser(username, password) {
-  const response = await fetch(`${BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
+export async function registerUser(
+  username,
+  email,
+  password
+) {
+
+  const response = await fetch(
+    `${BASE_URL}/auth/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password
+      }),
+    }
+  );
 
   return response.json();
 }
-
 export async function deleteUrl(id) {
   const token = localStorage.getItem("token");
 

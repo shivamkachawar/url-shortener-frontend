@@ -1,6 +1,8 @@
 function RegisterForm({
   username,
   setUsername,
+  email,
+  setEmail,
   password,
   setPassword,
   handleRegister,
@@ -160,6 +162,33 @@ function RegisterForm({
                 />
 
               </div>
+              {/* Email */}
+
+<div>
+
+  <label className="text-sm font-semibold text-gray-600 block mb-2">
+
+    Email
+
+  </label>
+
+  <input
+
+    type="email"
+
+    placeholder="Enter your email"
+
+    value={email}
+
+    onChange={(e) => setEmail(e.target.value)}
+
+    disabled={loading}
+
+    className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-700 shadow-sm disabled:opacity-60"
+
+  />
+
+</div>
 
               {/* Password */}
               <div>

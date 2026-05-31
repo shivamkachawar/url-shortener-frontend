@@ -5,6 +5,7 @@ import RegisterForm from "../components/RegisterForm";
 function Register({ setIsLogin }) {
 
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // ✅ Loading state
@@ -16,7 +17,7 @@ function Register({ setIsLogin }) {
 
       setLoading(true);
 
-      const data = await registerUser(username, password);
+      const data = await registerUser(username, email, password);
 
       console.log("REGISTER RESPONSE:", data);
 
@@ -48,6 +49,8 @@ function Register({ setIsLogin }) {
     <RegisterForm
       username={username}
       setUsername={setUsername}
+      email={email}
+      setEmail={setEmail}
       password={password}
       setPassword={setPassword}
       handleRegister={handleRegister}

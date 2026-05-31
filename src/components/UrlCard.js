@@ -5,7 +5,8 @@ function UrlCard({
   handleDelete,
   handleExtend,
   setQrValue,
-  setOriginalUrl
+  setOriginalUrl,
+  setDeleteId
 }) {
 
   
@@ -237,7 +238,7 @@ function UrlCard({
 
           {/* Delete */}
           <button
-            onClick={() => handleDelete(item.id)}
+            onClick={() => setDeleteId(item.id)}
             className="w-full mt-3 px-4 py-3 rounded-2xl bg-red-50 text-red-600 font-semibold hover:bg-red-100 transition text-sm"
           >
 

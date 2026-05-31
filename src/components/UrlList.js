@@ -5,7 +5,8 @@ function UrlList({
   handleDelete,
   handleExtend,
   setQrValue,
-  setOriginalUrl
+  setOriginalUrl,
+  setDeleteId
 }) {
 
   return (
@@ -19,6 +20,7 @@ function UrlList({
           item={item}
           handleDelete={handleDelete}
           handleExtend={handleExtend}
+          setDeleteId={setDeleteId}
           setQrValue={setQrValue}
           setOriginalUrl={setOriginalUrl}
         />

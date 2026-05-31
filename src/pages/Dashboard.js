@@ -25,6 +25,7 @@ function Dashboard() {
   const [username, setUsername] = useState("");
   const [deleteId, setDeleteId] = useState(null);
   const [toast, setToast] = useState("");
+  
 
   // QR states
   const [qrValue, setQrValue] = useState("");
@@ -92,14 +93,6 @@ function Dashboard() {
 
   const handleDelete = async (id) => {
 
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this URL?"
-      )
-    ) {
-      return;
-    }
-  
     try {
   
       await deleteUrl(id);
@@ -110,12 +103,14 @@ function Dashboard() {
   
       setTimeout(() => setToast(""), 2000);
   
-    } catch (error) {
+    } catch {
   
       setToast("❌ Delete failed");
   
       setTimeout(() => setToast(""), 2000);
     }
+  
+    setDeleteId(null);
   };
 
   // OPEN MODAL
@@ -184,9 +179,47 @@ function Dashboard() {
 
     <div className="min-h-screen bg-gray-100 p-6">
       {toast && (
-  <div className="fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl bg-gray-900 text-white shadow-2xl font-semibold">
+  <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] px-5 py-3 rounded-2xl bg-gray-900 text-white shadow-2xl font-semibold">
     {toast}
   </div>
+)}
+
+{deleteId && (
+
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
+
+  <div className="bg-white rounded-3xl p-6 w-[90%] max-w-md shadow-2xl">
+
+    <h2 className="text-xl font-bold text-gray-900">
+      Delete URL?
+    </h2>
+
+    <p className="mt-2 text-gray-500">
+      This action cannot be undone.
+    </p>
+
+    <div className="flex gap-3 mt-6">
+
+      <button
+        onClick={() => setDeleteId(null)}
+        className="flex-1 py-3 rounded-2xl border border-gray-200"
+      >
+        Cancel
+      </button>
+
+      <button
+        onClick={() => handleDelete(deleteId)}
+        className="flex-1 py-3 rounded-2xl bg-red-500 text-white font-semibold"
+      >
+        Delete
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 )}
       <Header
         username={username}
@@ -238,6 +271,7 @@ function Dashboard() {
         filteredUrls={filteredUrls}
         handleDelete={handleDelete}
         handleExtend={handleExtend}
+        setDeleteId={setDeleteId}
         setQrValue={setQrValue}
         setOriginalUrl={setOriginalUrl}
       />

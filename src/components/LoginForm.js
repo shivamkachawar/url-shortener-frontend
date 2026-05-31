@@ -146,13 +146,13 @@ function LoginForm({
 
                 <label className="text-sm font-semibold text-gray-600 block mb-2">
 
-                  Username
-
+                  Username or Email
+ 
                 </label>
 
                 <input
                   type="text"
-                  placeholder="Enter username"
+                  placeholder="Enter username or Email"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   disabled={loading}

@@ -58,16 +58,10 @@ function App() {
     <div className="min-h-screen bg-gray-100">
 
 <button
-onClick={() => setShowHome(true)}
-className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition-all duration-200 text-sm font-medium"
+  onClick={() => setShowHome(true)}
+  className="hidden sm:flex absolute top-6 left-6 z-50 items-center gap-2 text-gray-500 hover:text-indigo-600"
 >
-
-<span className="text-base">←</span>
-
-<span className="hidden sm:inline">
-  Back to Home
-</span>
-
+  ← Back to Home
 </button>
 
 

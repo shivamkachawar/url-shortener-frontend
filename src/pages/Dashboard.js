@@ -23,6 +23,8 @@ function Dashboard() {
   const [search, setSearch] = useState("");
   const [customCode, setCustomCode] = useState("");
   const [username, setUsername] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
+  const [toast, setToast] = useState("");
 
   // QR states
   const [qrValue, setQrValue] = useState("");
@@ -97,15 +99,22 @@ function Dashboard() {
     ) {
       return;
     }
-
+  
     try {
-
+  
       await deleteUrl(id);
-
+  
       fetchUrls();
-
+  
+      setToast("✅ URL deleted");
+  
+      setTimeout(() => setToast(""), 2000);
+  
     } catch (error) {
-      alert("Delete failed");
+  
+      setToast("❌ Delete failed");
+  
+      setTimeout(() => setToast(""), 2000);
     }
   };
 
@@ -174,7 +183,11 @@ function Dashboard() {
   return (
 
     <div className="min-h-screen bg-gray-100 p-6">
-
+      {toast && (
+  <div className="fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl bg-gray-900 text-white shadow-2xl font-semibold">
+    {toast}
+  </div>
+)}
       <Header
         username={username}
         handleLogout={handleLogout}

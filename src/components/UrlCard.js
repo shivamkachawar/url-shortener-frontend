@@ -11,6 +11,7 @@ function UrlCard({
   
 
   const [expanded, setExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
   if (!item || !item.shortCode) return null;
   const shortUrl = `https://snip--ly.vercel.app/${item.shortCode}`;
 
@@ -187,16 +188,27 @@ function UrlCard({
 
             {/* Copy */}
             <button
-              onClick={() => {
-                navigator.clipboard.writeText(shortUrl);
-                alert("Short URL copied");
-              }}
-              className="w-full px-4 py-3 rounded-2xl bg-indigo-50 text-indigo-600 font-semibold hover:bg-indigo-100 transition text-sm"
-            >
+  onClick={() => {
 
-              📋 Copy
+    navigator.clipboard.writeText(shortUrl);
 
-            </button>
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+
+  }}
+  className={`w-full px-4 py-3 rounded-2xl font-semibold transition text-sm ${
+    copied
+      ? "bg-green-50 text-green-600"
+      : "bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+  }`}
+>
+
+  {copied ? "✅ Copied" : "📋 Copy"}
+
+</button>
 
             {/* Extend */}
             <button

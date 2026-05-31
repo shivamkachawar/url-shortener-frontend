@@ -30,29 +30,26 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  if (window.location.pathname === "/oauth-success") {
+  const oauthToken =
+  new URLSearchParams(
+    window.location.search
+  ).get("oauthToken");
 
-    const token =
-      new URLSearchParams(
-        window.location.search
-      ).get("token");
-  
-    if (token) {
-  
-      localStorage.setItem(
-        "token",
-        token
-      );
-  
-      window.location.href = "/";
-    }
-  
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Logging you in...
-      </div>
-    );
-  }
+if (oauthToken) {
+
+  localStorage.setItem(
+    "token",
+    oauthToken
+  );
+
+  window.history.replaceState(
+    {},
+    document.title,
+    "/"
+  );
+
+  window.location.reload();
+}
 
   if (window.location.pathname === "/expired") {
     return <ExpiredPage />;

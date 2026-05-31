@@ -15,6 +15,21 @@ function App() {
   const [user, setUser] = useState(null);
   const [showHome, setShowHome] = useState(true);
 
+  
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getCurrentUser()
+        .then((data) => {
+          setUser(data);
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          setIsLoggedIn(false);
+        });
+    }
+  }, [isLoggedIn]);
+
   if (window.location.pathname === "/oauth-success") {
 
     const token =
@@ -38,19 +53,6 @@ function App() {
       </div>
     );
   }
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      getCurrentUser()
-        .then((data) => {
-          setUser(data);
-        })
-        .catch(() => {
-          localStorage.removeItem("token");
-          setIsLoggedIn(false);
-        });
-    }
-  }, [isLoggedIn]);
 
   if (window.location.pathname === "/expired") {
     return <ExpiredPage />;

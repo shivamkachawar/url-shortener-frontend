@@ -211,31 +211,46 @@ function RegisterForm({
               </div>
 
               {/* BUTTON */}
-              <button
-                onClick={handleRegister}
-                disabled={loading}
-                className={`w-full py-4 rounded-2xl font-bold text-base sm:text-lg shadow-xl transition-all flex items-center justify-center gap-3 ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed text-white"
-                    : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:scale-[1.02] hover:shadow-2xl"
-                }`}
-              >
+              {/* REGISTER + GOOGLE */}
+<div className="grid grid-cols-2 gap-3">
 
-                {loading ? (
-                  <>
+  {/* REGISTER BUTTON */}
+  <button
+    onClick={handleRegister}
+    disabled={loading}
+    className={`py-4 rounded-2xl font-bold shadow-xl transition-all flex items-center justify-center ${
+      loading
+        ? "bg-gray-400 cursor-not-allowed text-white"
+        : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:scale-[1.02]"
+    }`}
+  >
+    {loading ? (
+      <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+    ) : (
+      "Register"
+    )}
+  </button>
 
-                    {/* Spinner */}
-                    <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+  {/* GOOGLE BUTTON */}
+  <button
+    onClick={() => {
+      window.location.href =
+        "https://sniply-backend.onrender.com/oauth2/authorization/google";
+    }}
+    className="py-4 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 transition flex items-center justify-center gap-2 font-semibold text-gray-700 shadow-sm"
+  >
+    <img
+      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+      alt="Google"
+      className="w-5 h-5"
+    />
 
-                    Creating account...
+    <span className="hidden sm:inline">
+      Google
+    </span>
+  </button>
 
-                  </>
-                ) : (
-                  "Create Account"
-                )}
-
-              </button>
-
+</div>
             </div>
 
             {/* FOOTER */}
